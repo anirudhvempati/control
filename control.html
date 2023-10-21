@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .section {
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button.on {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .button.off {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="section" id="light">
+        <h2>Light</h2>
+        <button class="button on" onclick="sendRequest(0, 0)">On</button>
+        <button class="button off" onclick="sendRequest(0, 1)">Off</button>
+    </div>
+    <div class="section" id="sound">
+        <h2>Sound</h2>
+        <button class="button on" onclick="sendRequest(1, 0)">On</button>
+        <button class="button off" onclick="sendRequest(1, 1)">Off</button>
+    </div>
+
+    <script>
+        function sendRequest(pin, value) {
+            // Define the API URL
+            const apiUrl = `https://blr1.blynk.cloud/external/api/update?token=fVzGgCw-XCiYbe_dTLgLs3ppnRH5HoGB&v${pin}=${value}`;
+
+            // Create a new HTTP request
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", apiUrl, true);
+
+            // Send the request
+            xhr.send();
+
+            // Handle the response (if needed)
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log(`Request sent: ${apiUrl}`);
+                }
+            };
+        }
+    </script>
+</body>
+</html>
